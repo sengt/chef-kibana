@@ -59,7 +59,7 @@ case  node['kibana']['install_type']
     link "#{node['kibana']['install_dir']}/current" do
       to "#{node['kibana']['install_dir']}/#{node['kibana']['git']['branch']}"
     end
-    node.set['kibana']['web_dir'] = "#{node['kibana']['install_dir']}/current/src"
+    node.set['kibana']['web_dir'] = "#{node['kibana']['install_dir']}/current/src/kibana"
   when "file"
     case node['kibana']['file']['type']
       when "zip"
@@ -82,9 +82,9 @@ template "#{node['kibana']['web_dir']}/config.js" do
   user kibana_user
 end
 
-link "#{node['kibana']['web_dir']}/app/dashboards/default.json" do
+link "#{node['kibana']['web_dir']}/apps/dashboard/default.json" do
   to "logstash.json"
-  only_if { !File::symlink?("#{node['kibana']['web_dir']}/app/dashboards/default.json") }
+  only_if { !File::symlink?("#{node['kibana']['web_dir']}/apps/dashboard/default.json") }
 end
 
 unless node['kibana']['webserver'].empty?
