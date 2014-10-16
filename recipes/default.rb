@@ -59,7 +59,7 @@ case  node['kibana']['install_type']
     link "#{node['kibana']['install_dir']}/current" do
       to "#{node['kibana']['install_dir']}/#{node['kibana']['git']['branch']}"
     end
-    node.set['kibana']['web_dir'] = "#{node['kibana']['install_dir']}/current/src"
+    node.set['kibana']['web_dir'] = "#{node['kibana']['install_dir']}/current/src/kibana"
   when "file"
     case node['kibana']['file']['type']
       when "zip"
